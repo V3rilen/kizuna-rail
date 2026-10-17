@@ -11,3 +11,19 @@ main {
   display: flex;
   justify-content: space-between;
 }
+
+@media print {
+  body {
+    background-color: #fff;
+    color: #000;
+  }
+
+  header,
+  footer {
+    display: none;
+  }
+
+  main {
+    padding: 0;
+  }
+}

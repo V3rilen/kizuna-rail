@@ -3,21 +3,18 @@ import {
   getListOfRegions,
   getListOfSeasons,
   getRoutesBySeasonAndRegion,
-} from "../models/model.js";
+} from "../../models/model.js";
 
 export default async (req, res) => {
   const params = req.query;
   let routes;
   let regions = await getListOfRegions();
   const seasons = await getListOfSeasons();
-  if (
-    (params.season && seasons.includes(params.season)) ||
-    (params.region && regions.includes(params.region))
-  ) {
-    routes = await getRoutesBySeasonAndRegion(params.season, params.region);
-  } else {
-    routes = await getAllRoutes();
-  }
+
+  routes = await getRoutesBySeasonAndRegion(
+    params.season && seasons.includes(params.season) ? params.season : null,
+    params.region && regions.includes(params.region) ? params.region : null,
+  );
 
   res.render("routes/list", {
     title: "Scenic Train Routes",
